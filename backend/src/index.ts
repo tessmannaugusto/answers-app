@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import express from 'express'
-import answersRoutes from './routes/answers.js'
+import answersRoutes from './routes/answersRoute.js'
 
 dotenv.config()
 
