@@ -7,7 +7,7 @@ const answersController = new AnswersController()
 
 router.post('/', answersController.createAnswer);
 
-router.get('/', answersController.readAnswer);
+router.get('/:answerId', answersController.readAnswer);
 
 router.put('/', answersController.updateAnswer);
 
