@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
-import answersRoutes from './routes/answersRoute.js'
+import adminAnswerRoute from './routes/adminAnswerRoute.js'
+import mockAnswerRoute from './routes/adminAnswerRoute.js'
 import { AppDataSource } from '../data-source.js'
 
 dotenv.config()
@@ -12,7 +13,8 @@ AppDataSource.initialize()
     app.use(express.json())
 
     // Routes
-    app.use('/api/answers', answersRoutes)
+    app.use('/admin/answers', adminAnswerRoute)
+    app.use('/mock/answers', mockAnswerRoute)
 
     const PORT = process.env.PORT || 3000
     app.listen(PORT, () => {

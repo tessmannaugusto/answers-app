@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { AnswerRepository } from '../repository/answerRepository.js';
+import { AnswerRepository } from '../repositories/answerRepository.js';
 
-export class AnswersController {
+export class AdminAnswerController {
 
   async createAnswer(req: Request, res: Response) {
     try {
