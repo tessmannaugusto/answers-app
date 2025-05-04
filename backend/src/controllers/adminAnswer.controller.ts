@@ -1,20 +1,19 @@
 import { Request, Response } from 'express';
-import { AnswerRepository } from '../repositories/answerRepository.js';
+import { AnswerRepository } from '../repositories/answer.repository.js';
 
 export class AdminAnswerController {
 
   async createAnswer(req: Request, res: Response) {
     try {
-      const { method, response } = req.body;
-      if (!method || !response) {
-        return res.status(400).json({ error: 'Method and response are required' });
+      const { method, response, statusCode } = req.body;
+      if (!method || !response || !statusCode) {
+        return res.status(400).json({ error: 'Method, response and statusCode are required' });
       }
-      const answer = AnswerRepository.create({ method, response });
+      const answer = AnswerRepository.create({ method, response, statusCode });
       await AnswerRepository.save(answer);
 
       return res.status(201).json({ message: `Answer created successfully, id: ${answer.id}` });
-    } catch (error: any) {
-      console.error('Error creating answer:', error.message);
+    } catch (error) {
       return res.status(500).json({ error: `Failed to create answer, error: ${error}` });
     }
   }

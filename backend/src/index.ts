@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
-import adminAnswerRoute from './routes/adminAnswerRoute.js'
-import mockAnswerRoute from './routes/adminAnswerRoute.js'
+import adminAnswerRoute from './routes/adminAnswer.route.js'
+import mockAnswerRoute from './routes/mockAnswer.route.js'
 import { AppDataSource } from '../data-source.js'
 
 dotenv.config()

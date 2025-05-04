@@ -17,4 +17,7 @@ export class Answer {
 
   @Column({ type: "varchar" })
   response: string;
+
+  @Column({ type: "integer", nullable: false })
+  statusCode: number;
 }
