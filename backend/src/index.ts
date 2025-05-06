@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import express from 'express'
+import cors from 'cors'
 import adminAnswerRoute from './routes/adminAnswer.route.js'
 import mockAnswerRoute from './routes/mockAnswer.route.js'
 import { AppDataSource } from '../data-source.js'
@@ -10,6 +11,7 @@ AppDataSource.initialize()
   .then(() => {
     const app = express()
 
+    app.use(cors())
     app.use(express.json())
 
     // Routes
