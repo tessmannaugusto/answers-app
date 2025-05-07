@@ -1,14 +1,11 @@
 import { Request, Response } from 'express';
 import { AnswerRepository } from '../repositories/answer.repository.js';
+import { CreateAnswerInput, UpdateAnswerInput } from '../schemas/answer.schema.js';
 
 export class AdminAnswerController {
-  async createAnswer(req: Request, res: Response) {
+  async createAnswer(req: Request<{}, {}, CreateAnswerInput>, res: Response) {
     try {
       const { method, response, statusCode } = req.body;
-      
-      if (!method || !statusCode) {
-        return res.status(400).json({ error: 'Method and statusCode are required' });
-      }
       const answer = AnswerRepository.create({ method, response, statusCode });
       await AnswerRepository.save(answer);
 
@@ -32,7 +29,7 @@ export class AdminAnswerController {
     }
   }
 
-  async updateAnswer(req: Request, res: Response) {
+  async updateAnswer(req: Request<{}, {}, UpdateAnswerInput>, res: Response) {
     try {
       
       return res.status(200).json({ message: 'Answer updated successfully' });

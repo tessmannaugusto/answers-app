@@ -1,15 +1,23 @@
 import { Router } from 'express';
 import { AdminAnswerController } from '../controllers/adminAnswer.controller.js';
+import { validateRequest } from '../middleware/validateRequest.js';
+import { createAnswerSchema, updateAnswerSchema } from '../schemas/answer.schema.js';
 
 const router = Router();
 
 const adminAnswersController = new AdminAnswerController()
 
-router.post('/', adminAnswersController.createAnswer);
+router.post('/', 
+  validateRequest(createAnswerSchema), 
+  adminAnswersController.createAnswer
+);
 
 router.get('/:answerId', adminAnswersController.readAnswer);
 
-router.put('/:answerId', adminAnswersController.updateAnswer);
+router.put('/:answerId', 
+  validateRequest(updateAnswerSchema), 
+  adminAnswersController.updateAnswer
+);
 
 router.delete('/:answerId', adminAnswersController.deleteAnswer);
 
