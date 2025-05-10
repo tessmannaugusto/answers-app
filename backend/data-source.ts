@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Answer } from "./src/entity/answer.entity.js";
+import { User } from "./src/entity/user.entity.js";
 
 
 export const AppDataSource = new DataSource({
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
   logging: true,
   logger: "advanced-console",
   ssl: true,
-  entities: [Answer],
+  entities: [Answer, User],
   migrations: ["src/migration/**/*.ts"],
   subscribers: ["src/subscriber/**/*.ts"],
 });

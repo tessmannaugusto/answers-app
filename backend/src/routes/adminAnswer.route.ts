@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { AdminAnswerController } from '../controllers/adminAnswer.controller.js';
-import { validateRequest } from '../middleware/validateRequest.js';
+import { validateRequest } from '../middleware/validateRequest.middleware.js';
 import { createAnswerSchema, updateAnswerSchema } from '../schemas/answer.schema.js';
 
 const router = Router();

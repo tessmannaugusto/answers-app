@@ -4,18 +4,25 @@ import cors from 'cors'
 import adminAnswerRoute from './routes/adminAnswer.route.js'
 import mockAnswerRoute from './routes/mockAnswer.route.js'
 import { AppDataSource } from '../data-source.js'
+import authRoute from './routes/auth.route.js'
+import { authMiddleware } from './middleware/auth.middleware.js'
 
-dotenv.config()
+dotenv.config();
+
 
 AppDataSource.initialize()
   .then(() => {
     const app = express()
 
-    app.use(cors())
+    app.use(cors({
+      credentials: true,
+      exposedHeaders: ['Authorization']
+    }))
     app.use(express.json())
 
     // Routes
-    app.use('/admin/answers', adminAnswerRoute)
+    app.use('/auth', authRoute);
+    app.use('/admin/answers', authMiddleware, adminAnswerRoute);
     app.use('/mock/answers', mockAnswerRoute)
 
     const PORT = process.env.PORT || 3000

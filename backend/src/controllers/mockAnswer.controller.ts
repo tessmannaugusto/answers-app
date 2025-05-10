@@ -4,7 +4,12 @@ import { MockAnswerService } from '../services/mockAnswer.service.js';
 
 export class MockAnswerController {
 
-  private mockAnswerService = new MockAnswerService(AnswerRepository);
+  private mockAnswerService: MockAnswerService;
+  
+    constructor() {
+      this.mockAnswerService = new MockAnswerService(AnswerRepository);
+    }
+
 
   mockAnswer = async (req: Request, res: Response) => {
     try {
