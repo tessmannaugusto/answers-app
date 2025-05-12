@@ -32,7 +32,6 @@ export class AuthService {
   }
 
   generateToken(user: User): string {
-    console.log('Signing token with secret (first 4 chars):', this.jwtSecret.substring(0, 4));
     return jwt.sign(
       { userId: user.id, email: user.email },
       this.jwtSecret,

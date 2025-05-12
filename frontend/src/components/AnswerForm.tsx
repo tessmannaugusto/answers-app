@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Box, 
   Button, 
@@ -17,6 +18,14 @@ export const AnswerForm = () => {
   const [statusCode, setStatusCode] = useState('200');
   const [createdEndpoint, setCreatedEndpoint] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
 
   const isValidJSON = (str: string): boolean => {
     try {
@@ -46,11 +55,20 @@ export const AnswerForm = () => {
     }
 
     try {
-      const result = await axios.post('http://localhost:3000/admin/answers', {
-        method,
-        response,
-        statusCode: parseInt(statusCode)
-      });
+      const token = localStorage.getItem('token');
+      const result = await axios.post(
+        'http://localhost:3000/admin/answers',
+        {
+          method,
+          response,
+          statusCode: parseInt(statusCode)
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
       setCreatedEndpoint(`http://localhost:3000/mock/answers/${result.data.id}`);
       setError('');
     } catch (error) {
