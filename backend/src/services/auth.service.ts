@@ -31,6 +31,17 @@ export class AuthService {
     return null;
   }
 
+  validateToken(token: string): boolean {
+    try {
+      console.log('Validating token:', token);
+      jwt.verify(token, this.jwtSecret);
+      return true;
+    } catch (error) {
+      console.error('Token validation failed:', error);
+      return false;
+    }
+  }
+
   generateToken(user: User): string {
     return jwt.sign(
       { userId: user.id, email: user.email },

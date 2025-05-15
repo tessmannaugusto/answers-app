@@ -37,4 +37,23 @@ export class AuthController {
       res.status(400).json({ message: 'Login failed' });
     }
   }
+
+  validateToken = (req: Request, res: Response) => {
+    const token = req.headers['authorization']?.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+    try {
+      const isValid = this.authService.validateToken(token);
+      if (isValid) {
+        return res.json({ valid: true });
+      } else {
+        return res.status(401).json({ valid: false });
+      }
+    }
+    catch (error) {
+      console.error('Token validation error:', error);
+      return res.status(500).json({ message: 'Token validation failed' });
+    }
+  }
 }

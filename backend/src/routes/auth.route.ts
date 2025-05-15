@@ -16,4 +16,8 @@ router.post('/login',
   authController.login.bind(authController)
 );
 
+router.get('/validate-token',
+  authController.validateToken.bind(authController)
+)
+
 export default router;
