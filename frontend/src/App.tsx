@@ -1,22 +1,25 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { AnswerForm } from './components/AnswerForm';
 import { Login } from './components/Login';
+import { AnswerForm } from './components/AnswerForm';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { Register } from './components/Register';
 
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem('token');
-
   return (
     <Router>
       <Container>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route 
+          <Route
             path="/create-endpoint"
-            element={isAuthenticated ? <AnswerForm /> : <Navigate to="/login" />}
+            element={
+              <ProtectedRoute>
+                <AnswerForm />
+              </ProtectedRoute>
+            }
           />
           <Route path="*" element={<Navigate to="/create-endpoint" />} />
         </Routes>

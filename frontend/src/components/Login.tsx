@@ -27,12 +27,17 @@ export const Login = () => {
     }
   };
 
+  const handleRegister = async () => {
+    navigate('/register');
+  };
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Typography variant="h5">Login</Typography>
       <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <Button variant="contained" onClick={handleLogin}>Login</Button>
+      <Button variant="contained" onClick={handleRegister}>not registered?</Button>
     </Box>
   );
 };

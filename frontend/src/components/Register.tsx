@@ -32,7 +32,7 @@ export const Register = () => {
       <Typography variant="h5">Register</Typography>
       <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <Button variant="contained" onClick={handleRegister}>Login</Button>
+      <Button variant="contained" onClick={handleRegister}>register!</Button>
     </Box>
   );
 };
