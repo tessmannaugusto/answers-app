@@ -9,7 +9,7 @@ export const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch('http://localhost:3000/login', {
+      const res = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -27,7 +27,7 @@ export const Login = () => {
     }
   };
 
-  const handleRegister = async () => {
+  const navigateToRegister = () => {
     navigate('/register');
   };
 
@@ -37,7 +37,7 @@ export const Login = () => {
       <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <Button variant="contained" onClick={handleLogin}>Login</Button>
-      <Button variant="contained" onClick={handleRegister}>not registered?</Button>
+      <Button variant="contained" onClick={navigateToRegister}>not registered?</Button>
     </Box>
   );
 };

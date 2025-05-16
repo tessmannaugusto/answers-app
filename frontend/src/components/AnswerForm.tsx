@@ -10,7 +10,6 @@ import {
   InputLabel,
   Typography
 } from '@mui/material';
-import axios from 'axios';
 
 export const AnswerForm = () => {
   const [method, setMethod] = useState('GET');
@@ -56,20 +55,20 @@ export const AnswerForm = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const result = await axios.post(
-        'http://localhost:3000/admin/answers',
-        {
+      const result = await fetch('http://localhost:3000/admin', {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${token}`
+          },
+        body: JSON.stringify({
           method,
           response,
           statusCode: parseInt(statusCode)
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      setCreatedEndpoint(`http://localhost:3000/mock/answers/${result.data.id}`);
+        })});
+
+      const data = await result.json();
+      console.log('Response from server:', data);
+      setCreatedEndpoint(`http://localhost:3000/mock/answers/${data.id}`);
       setError('');
     } catch (error) {
       setError('Error creating answer. Please try again.');

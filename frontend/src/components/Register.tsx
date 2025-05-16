@@ -9,7 +9,7 @@ export const Register = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await fetch('http://localhost:3000/register', {
+      const res = await fetch('http://localhost:3000/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -27,12 +27,17 @@ export const Register = () => {
     }
   };
 
+  const navigateToLogin = () => {
+    navigate('/login');
+  };
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Typography variant="h5">Register</Typography>
       <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <Button variant="contained" onClick={handleRegister}>register!</Button>
+      <Button variant="contained" disabled={!email || !password} onClick={handleRegister}>register!</Button>
+      <Button variant="contained" onClick={navigateToLogin}>already registered?</Button>
     </Box>
   );
 };

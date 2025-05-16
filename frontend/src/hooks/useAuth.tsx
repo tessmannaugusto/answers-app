@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -10,13 +9,16 @@ export const useAuth = () => {
         const token = localStorage.getItem('token');
         if (!token) throw new Error();
 
-        const response = await axios.get('/api/validate-token', {
-          headers: {
+        const response = await fetch('http://localhost:3000/auth/validate-token', {
+        method: 'GET',
+        headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        console.log('Token validation response:', response);
-        setIsAuthenticated(response.data.valid);
+      });
+
+      const data = await response.json();
+        console.log('Token validation response:', data);
+        setIsAuthenticated(data.valid);
       } catch (err) {
         console.error('Token validation failed:', err);
         setIsAuthenticated(false);
