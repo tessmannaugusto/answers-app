@@ -45,6 +45,7 @@ export class AuthController {
     }
     try {
       const isValid = this.authService.validateToken(token);
+      console.log(`validação de token: ${isValid}`);
       if (isValid) {
         return res.json({ valid: true });
       } else {
