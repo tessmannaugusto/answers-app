@@ -57,18 +57,20 @@ export const AnswerForm = () => {
       const token = localStorage.getItem('token');
       const result = await fetch('http://localhost:3000/admin', {
         method: 'POST',
-        headers: {
+          body: JSON.stringify({
+            method,
+            response,
+            statusCode: parseInt(statusCode)
+          }),
+          headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
-          },
-        body: JSON.stringify({
-          method,
-          response,
-          statusCode: parseInt(statusCode)
-        })});
+          }
+        });
 
       const data = await result.json();
       console.log('Response from server:', data);
-      setCreatedEndpoint(`http://localhost:3000/mock/answers/${data.id}`);
+      setCreatedEndpoint(`http://localhost:3000/mock/${data.id}`);
       setError('');
     } catch (error) {
       setError('Error creating answer. Please try again.');
@@ -78,6 +80,14 @@ export const AnswerForm = () => {
 
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
+      <Button 
+        variant="outlined" 
+        sx={{ mt: 2 }} 
+        onClick={() => navigate('/my-endpoints')}
+      >
+        View My Endpoints
+      </Button>
+
       <Typography variant="h5" gutterBottom>
         Create Mock Answer
       </Typography>
