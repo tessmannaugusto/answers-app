@@ -23,7 +23,7 @@ AppDataSource.initialize()
     // Routes
     app.use('/auth', authRoute);
     app.use('/admin', authMiddleware, adminAnswerRoute);
-    app.use('/mock', mockAnswerRoute)
+    app.use('/mock',authMiddleware, mockAnswerRoute)
 
     const PORT = process.env.PORT || 3000
     app.listen(PORT, () => {

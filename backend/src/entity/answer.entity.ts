@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { User } from "./user.entity.js";
 
 enum MethodType {
   GET = "GET",
@@ -20,4 +21,11 @@ export class Answer {
 
   @Column({ type: "integer", nullable: false })
   statusCode: number;
+
+  @ManyToOne(() => User, (user) => user.answers, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user: User;
+
+  @Column()
+  userId: number;
 }

@@ -15,6 +15,20 @@ export class AdminAnswerController {
     }
   }
 
+  async getAnswers(req: Request, res: Response) {
+    try {
+      const userId  = req.params.userId;
+      if (!userId) {
+        return res.status(400).json({ error: 'UserId ID is required' });
+      }
+      const id = parseInt(userId);
+      const answer = await AnswerRepository.find({ where: { } });
+      return res.status(200).json({ message: `Answer retrieved successfully: ${JSON.stringify(answer)}` });
+    } catch (error) {
+      return res.status(500).json({ error: 'Failed to fetch answers' });
+    }
+  }
+
   async readAnswer(req: Request, res: Response) {
     try {
       const answerId  = req.params.answerId;

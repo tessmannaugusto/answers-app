@@ -12,6 +12,8 @@ router.post('/',
   adminAnswersController.createAnswer
 );
 
+router.get('/endpoints/:userId', adminAnswersController.readAnswer);
+
 router.get('/:answerId', adminAnswersController.readAnswer);
 
 router.put('/:answerId', 
