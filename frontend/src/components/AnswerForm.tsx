@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
+import {  
+  Alert,
   Box, 
   Button, 
   TextField, 
@@ -10,6 +11,7 @@ import {
   InputLabel,
   Typography
 } from '@mui/material';
+import axios from 'axios';
 
 export const AnswerForm = () => {
   const [method, setMethod] = useState('GET');
@@ -17,6 +19,7 @@ export const AnswerForm = () => {
   const [statusCode, setStatusCode] = useState('200');
   const [createdEndpoint, setCreatedEndpoint] = useState('');
   const [error, setError] = useState('');
+  const [errorTextField, setErrorTextField] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,44 +42,46 @@ export const AnswerForm = () => {
   const handleResponseChange = (value: string) => {
     setResponse(value);
     if (value && !isValidJSON(value)) {
-      setError('Please enter valid JSON');
+      setErrorTextField('Please enter valid JSON');
     } else {
-      setError('');
+      setErrorTextField('');
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!isValidJSON(response)) {
-      setError('Please enter valid JSON');
-      return;
-    }
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    try {
-      const token = localStorage.getItem('token');
-      const result = await fetch('http://localhost:3000/admin', {
-        method: 'POST',
-          body: JSON.stringify({
-            method,
-            response,
-            statusCode: parseInt(statusCode)
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          }
-        });
+  if (!isValidJSON(response)) {
+    setErrorTextField('Please enter valid JSON');
+    return;
+  }
 
-      const data = await result.json();
-      console.log('Response from server:', data);
-      setCreatedEndpoint(`http://localhost:3000/mock/${data.id}`);
-      setError('');
-    } catch (error) {
-      setError('Error creating answer. Please try again.');
-      console.error('Error creating answer:', error);
-    }
-  };
+  try {
+    const token = localStorage.getItem('token');
+
+    const { data } = await axios.post(
+      'http://localhost:3000/admin',
+      {
+        method,
+        response,
+        statusCode: parseInt(statusCode),
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log('Response from server:', data);
+    setCreatedEndpoint(`http://localhost:3000/mock/${data.id}`);
+    setError('');
+  } catch (error) {
+    setError('Error creating answer. Please try again.');
+    console.error('Error creating answer:', error);
+  }
+};
 
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
@@ -114,8 +119,8 @@ export const AnswerForm = () => {
           label="Response (JSON)"
           value={response}
           onChange={(e) => handleResponseChange(e.target.value)}
-          error={!!error}
-          helperText={error}
+          error={!!errorTextField}
+          helperText={errorTextField}
           sx={{ mb: 2 }}
         />
 
@@ -127,6 +132,12 @@ export const AnswerForm = () => {
           onChange={(e) => setStatusCode(e.target.value)}
           sx={{ mb: 2 }}
         />
+
+        {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
 
         <Button 
           variant="contained" 
