@@ -65,6 +65,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         method,
         response,
         statusCode: parseInt(statusCode),
+        userId: localStorage.getItem('userId') || ''
       },
       {
         headers: {
@@ -143,7 +144,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           variant="contained" 
           type="submit" 
           fullWidth
-          disabled={!!error}
+          disabled={!!errorTextField}
         >
           Create Answer
         </Button>
