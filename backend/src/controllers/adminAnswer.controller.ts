@@ -6,6 +6,7 @@ export class AdminAnswerController {
   async createAnswer(req: Request<{}, {}, CreateAnswerInput>, res: Response) {
     try {
       const { method, response, statusCode } = req.body;
+      console.log(`request body: ${JSON.stringify(req.body)}`);
       const userId = parseInt(req.user?.id || '0');
       console.log(`User ID: ${userId}`);
       if (!userId) {
