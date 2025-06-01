@@ -10,8 +10,7 @@ export const createAnswerSchema = z.object({
       return false;
     }
   }, { message: 'Response must be a valid JSON string' }),
-  statusCode: z.number().int().min(100).max(599),
-  userId: z.string().max(50).optional()
+  statusCode: z.number().int().min(100).max(599)
 });
 
 export const updateAnswerSchema = createAnswerSchema.partial();

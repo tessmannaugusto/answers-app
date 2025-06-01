@@ -1,23 +1,23 @@
 import { Request, Response } from 'express';
 import { AnswerRepository } from '../repositories/answer.repository.js';
-import { CreateAnswerInput, UpdateAnswerInput } from '../schemas/answer.schema.js';
+import { UpdateAnswerInput } from '../schemas/answer.schema.js';
+import { AuthenticatedRequest } from '../middleware/auth.middleware.js';
+
 
 export class AdminAnswerController {
-  async createAnswer(req: Request<{}, {}, CreateAnswerInput>, res: Response) {
+
+  async createAnswer(req: AuthenticatedRequest, res: Response) {
     try {
       const { method, response, statusCode } = req.body;
-      console.log(`request body: ${JSON.stringify(req.body)}`);
-      const userId = parseInt(req.user?.id || '0');
-      console.log(`User ID: ${userId}`);
-      if (!userId) {
-        return res.status(401).json({ status: 'error', error: 'User not authenticated' });
-      }
+      const userId = req.userId || '0';
+      
+      console.log(`User ID from token: ${userId}`);
 
       const answer = AnswerRepository.create({
         method,
         response,
         statusCode,
-        userId
+        userId: parseInt(userId, 10)
       });
       await AnswerRepository.save(answer);
 

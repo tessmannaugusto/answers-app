@@ -49,4 +49,5 @@ export class AuthService {
       { expiresIn: '24h' }
     );
   }
+
 }
