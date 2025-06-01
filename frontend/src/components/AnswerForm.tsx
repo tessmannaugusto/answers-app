@@ -64,8 +64,7 @@ const handleSubmit = async (e: React.FormEvent) => {
       {
         method,
         response,
-        statusCode: parseInt(statusCode),
-        userId: localStorage.getItem('userId') || ''
+        statusCode: parseInt(statusCode)
       },
       {
         headers: {
