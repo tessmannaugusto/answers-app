@@ -37,7 +37,7 @@ export const MyEndpoints = () => {
         }
 
         const data = await response.json();
-        setEndpoints(data); // Assumes array of endpoints
+        setEndpoints(data);
       } catch (err) {
         setError('Could not load endpoints.');
         console.error('Error fetching endpoints:', err);
