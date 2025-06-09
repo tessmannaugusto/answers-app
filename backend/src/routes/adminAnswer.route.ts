@@ -12,7 +12,7 @@ router.post('/',
   adminAnswersController.createAnswer
 );
 
-router.get('/endpoints/:userId', adminAnswersController.readAnswer);
+router.get('/endpoints', adminAnswersController.getAnswers);
 
 router.get('/:answerId', adminAnswersController.readAnswer);
 

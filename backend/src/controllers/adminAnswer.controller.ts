@@ -27,15 +27,14 @@ export class AdminAnswerController {
     }
   }
 
-  async getAnswers(req: Request, res: Response) {
+  async getAnswers(req: AuthenticatedRequest, res: Response) {
     try {
-      const userId = req.params.userId;
+      const userId = parseInt(req.userId || '0') || 0;
       if (!userId) {
         return res.status(400).json({ error: 'UserId ID is required' });
       }
-      const id = parseInt(userId);
-      const answer = await AnswerRepository.find({ where: {} });
-      return res.status(200).json({ message: `Answer retrieved successfully: ${JSON.stringify(answer)}` });
+      const answer = await AnswerRepository.find({ where: { userId } });
+      return res.status(200).json(answer);
     } catch (error) {
       return res.status(500).json({ error: 'Failed to fetch answers' });
     }
