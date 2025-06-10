@@ -85,14 +85,6 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   return (
     <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4 }}>
-      <Button 
-        variant="outlined" 
-        sx={{ mt: 2 }} 
-        onClick={() => navigate('/my-endpoints')}
-      >
-        View My Endpoints
-      </Button>
-
       <Typography variant="h5" gutterBottom>
         Create Mock Answer
       </Typography>

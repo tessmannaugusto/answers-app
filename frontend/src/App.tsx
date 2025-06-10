@@ -1,10 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Container } from '@mui/material';
 import { Login } from './components/Login';
-import { AnswerForm } from './components/AnswerForm';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Register } from './components/Register';
-import { MyEndpoints } from './components/MyEndpoints';
+import { Home } from './components/Home';
 
 
 function App() {
@@ -15,22 +14,22 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
-            path="/create-endpoint"
+            path="/home"
             element={
               <ProtectedRoute>
-                <AnswerForm />
+                <Home />
               </ProtectedRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/my-endpoints"
             element={
               <ProtectedRoute>
                 <MyEndpoints />
               </ProtectedRoute>
             }
-          />
-          <Route path="*" element={<Navigate to="/create-endpoint" />} />
+          /> */}
+          <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
       </Container>
     </Router>
