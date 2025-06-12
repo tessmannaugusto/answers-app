@@ -4,11 +4,12 @@ import { Login } from './components/Login';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Register } from './components/Register';
 import { Home } from './components/Home';
-
+import { Header } from './components/Header';
 
 function App() {
   return (
     <Router>
+      <Header />
       <Container>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -21,14 +22,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route
-            path="/my-endpoints"
-            element={
-              <ProtectedRoute>
-                <MyEndpoints />
-              </ProtectedRoute>
-            }
-          /> */}
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
       </Container>
