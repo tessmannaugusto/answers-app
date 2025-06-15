@@ -32,7 +32,7 @@ export const Login = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 , maxWidth: 400, mx: 'auto', my: 'auto'}}>
       <Typography variant="h5">Login</Typography>
       <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
